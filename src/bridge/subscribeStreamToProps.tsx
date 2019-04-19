@@ -1,11 +1,12 @@
-import React from 'react';
+import {ComponentClass, PureComponent, ReactElement} from 'react';
 import autoBind from '../utils/autobind';
 import StreamModel, { IModelConstructor } from '../producer/Base';
 
 type IMapStreamToProps = (state: AnyObject) => AnyObject;
-type subscribeStreamToPropsHoc = (component: React.ComponentClass) => React.ComponentClass;
+type subscribeStreamToPropsHoc = (component: ComponentClass) => ComponentClass;
 
 /**
+ * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC
  * 作为装饰器，调用
  *      @subscribeStreamToProps(listModel, (state: any)=>{loading: state.pending...})
  *      class List extends Component{}
@@ -14,8 +15,8 @@ type subscribeStreamToPropsHoc = (component: React.ComponentClass) => React.Comp
  * @param model
  * @param mapStreamToProps
  */
-const subscribeStreamToProps = (model: StreamModel, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: React.ComponentClass) => {
-    class ModelWrapperComponent extends React.PureComponent {
+const subscribeStreamToProps = (model: StreamModel, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: ComponentClass) => {
+    class ModelWrapperComponent extends PureComponent {
         private hasBindListener = false;
         public state = {
             ...((model.constructor as IModelConstructor).initialState || {}),
@@ -50,13 +51,10 @@ const subscribeStreamToProps = (model: StreamModel, mapStreamToProps: IMapStream
          * 2.componentDidMount也不太合适，父组件的componentDidMount是
          * 在子组件的componentDidMount之后执行的, 如果子组件在didMount发起拉流的行为，就会导致一些问题
          */
-        public render (): React.ReactElement {
+        public render (): ReactElement {
             this.bindListener();
             const injectProps = mapStreamToProps(this.state) || {};
-            return <PipeComponent
-                {...this.props}
-                {...injectProps}
-            />;
+            return <PipeComponent {...this.props} {...injectProps}/>;
         }
     }
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import { subscribeStreamToProps, autoBind } from '../index';
 import listModel from './listModel';
 const initState = {
@@ -12,18 +12,19 @@ const initProps = {
     pullStream: ()=>{},
     loading: true,
     hasError: false,
-    list: [],
+    list: []
 };
 interface Props {
     resetStream: Function;
     pullStream: Function;
     loading: boolean;
     hasError: boolean;
-    list: Array<string>;
+    list: string[];
 }
 
 /**
  * 通过props注入到组件中
+ * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC
  */
 @subscribeStreamToProps(listModel, (state: any) => ({
     hasError: state.errorInfo !== null,
@@ -36,15 +37,15 @@ interface Props {
 }))
 export default class List extends Component<Props, State> {
     static state: State = initState;
-    constructor(props: Props){
+    public constructor (props: Props) {
         super(props);
     }
 
-    componentDidMount () {
+    public componentDidMount () {
         this.props.pullStream({userId: this.state.userId});
     }
 
-    render () {
+    public render () {
         const { loading, hasError, list } = this.props;
         if (hasError) {
             return (<div>请求出错了</div>);
@@ -63,7 +64,7 @@ export default class List extends Component<Props, State> {
     }
 
     @autoBind
-    reset () {
+    public reset () {
         this.props.resetStream();
     }
 }
