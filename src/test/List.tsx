@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import { subscribeStreamToProps, autoBind } from '../index';
-import listModel from './listModel';
+import ListModel from './ListModel';
 const initState = {
     userId: 12345
 };
@@ -26,7 +26,7 @@ interface Props {
  * 通过props注入到组件中
  * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC
  */
-@subscribeStreamToProps(listModel, (state: any) => ({
+@subscribeStreamToProps(ListModel, (state: any) => ({
     hasError: state.errorInfo !== null,
     loading: state.pending,
     list: state.list,

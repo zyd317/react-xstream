@@ -7,13 +7,6 @@ type subscribeStreamToPropsHoc = (component: ComponentClass) => ComponentClass;
 
 /**
  * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC
- * 作为装饰器，调用
- *      @subscribeStreamToProps(listModel, (state: any)=>{loading: state.pending...})
- *      class List extends Component{}
- *   实际上调用是: subscribeStreamToProps(listModel: model, callState: mapStreamToProps)(List: PipeComponent) => ModelWrapperComponent
- *   把List Component包装了一下((listModel: model, callState: mapStreamToProps))，然后使用ModelWrapperComponent输出
- * @param model
- * @param mapStreamToProps
  */
 const subscribeStreamToProps = (model: StreamProducerBase, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: ComponentClass) => {
     class ModelWrapperComponent extends PureComponent {

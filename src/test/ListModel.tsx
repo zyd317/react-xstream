@@ -10,7 +10,7 @@ function getUserList (userId: any) {
 }
 export default class ListModel extends StreamProducerBase {
     // model初始状态，subscribeStreamToProps订阅model时会自动使用initialState初始化状态
-    readonly initialState = {
+    static initialState = {
         pending: false,
         errorInfo: null,
         list: []
