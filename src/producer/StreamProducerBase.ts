@@ -1,5 +1,11 @@
 import { Stream, InternalListener, Subscription } from 'xstream';
 import autoBind from '../utils/autobind';
+export interface IModelConstructor extends Function {
+    initialState?: AnyObject;
+}
+
+type IPayload = any;
+type IStream = Stream<IPayload>;
 
 /**
  * xstream流Class，构造流Model需要继承这个基类
@@ -8,18 +14,11 @@ import autoBind from '../utils/autobind';
  *      import fromEvent from 'xstream/extra/fromEvent'
  * ```
  * 这个基类的主要作用是为Model统一提供
- *      1.绑定（bindListenerWithNewStream）、
- *      2.解绑（unsubscribe）、
+ *      1.绑定（bindListenerWithNewStream）
+ *      2.解绑（unsubscribe）
  *      3.流状态重置（resetStream）
  * 的能力，让父类只关注具体流数据的产生
  **/
-export interface IModelConstructor extends Function {
-    initialState?: AnyObject;
-}
-
-type IPayload = any;
-type IStream = Stream<IPayload>;
-
 abstract class StreamProducerBase {
     // subscribeStreamToProps Hoc中的pullStream会触发这个方法，间接启动流的分发行为
     private _dispatchStream: Function | null = null;
@@ -69,19 +68,19 @@ abstract class StreamProducerBase {
         }
     }
 
+    @autoBind
     private _createStream () {
         // 先解绑之前的订阅
         this.unsubscribe();
-        this._stream$ = new Stream({
-            _start: this._start.bind(this),
-            _stop: this._stop.bind(this)
-        });
+        this._stream$ = new Stream({_start: this._start, _stop: this._stop});
     }
 
+    @autoBind
     private _start (streamSource: InternalListener<IPayload>) {
         this._dispatchStream = (data: AnyObject) => streamSource._n(data);
     }
 
+    @autoBind
     private _stop () {}
 }
 export default StreamProducerBase;

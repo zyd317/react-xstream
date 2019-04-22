@@ -1,5 +1,5 @@
 import xs, { flattenSequentially } from 'xstream';
-import { ProducerBase } from '../index';
+import { StreamProducerBase } from '../index';
 function getUserList (userId: any) {
     return fetch(`sxmksfjnges?userId=${userId}`).then((res)=>{
         return {
@@ -8,7 +8,7 @@ function getUserList (userId: any) {
         };
     });
 }
-export default class ListModel extends ProducerBase {
+export default class ListModel extends StreamProducerBase {
     // model初始状态，subscribeStreamToProps订阅model时会自动使用initialState初始化状态
     readonly initialState = {
         pending: false,

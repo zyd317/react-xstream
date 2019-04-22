@@ -1,9 +1,9 @@
 import autoBind from './utils/autobind';
-import ProducerBase from './producer/base';
+import StreamProducerBase from './producer/StreamProducerBase';
 import subscribeStreamToProps from './bridge/subscribeStreamToProps';
 
 export {
     autoBind,
-    ProducerBase,
+    StreamProducerBase,
     subscribeStreamToProps
 };
