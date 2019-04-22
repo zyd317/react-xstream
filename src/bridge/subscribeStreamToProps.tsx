@@ -1,6 +1,6 @@
 import {ComponentClass, PureComponent, ReactElement} from 'react';
-import autoBind from '../utils/autobind';
-import StreamModel, { IModelConstructor } from '../producer/Base';
+import autoBind from '../utils/autoBind';
+import StreamProducerBase, { IModelConstructor } from '../producer/StreamProducerBase';
 
 type IMapStreamToProps = (state: AnyObject) => AnyObject;
 type subscribeStreamToPropsHoc = (component: ComponentClass) => ComponentClass;
@@ -15,7 +15,7 @@ type subscribeStreamToPropsHoc = (component: ComponentClass) => ComponentClass;
  * @param model
  * @param mapStreamToProps
  */
-const subscribeStreamToProps = (model: StreamModel, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: ComponentClass) => {
+const subscribeStreamToProps = (model: StreamProducerBase, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: ComponentClass) => {
     class ModelWrapperComponent extends PureComponent {
         private hasBindListener = false;
         public state = {

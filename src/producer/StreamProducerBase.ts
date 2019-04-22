@@ -1,5 +1,5 @@
 import { Stream, InternalListener, Subscription } from 'xstream';
-import autoBind from '../utils/autobind';
+import autoBind from '../utils/autoBind';
 export interface IModelConstructor extends Function {
     initialState?: AnyObject;
 }
