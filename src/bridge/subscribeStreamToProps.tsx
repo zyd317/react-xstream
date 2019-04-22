@@ -1,4 +1,4 @@
-import {ComponentClass, PureComponent, ReactElement} from 'react';
+import React, {ComponentClass, PureComponent, ReactElement} from 'react';
 import autoBind from '../utils/autoBind';
 import StreamProducerBase, { IModelConstructor } from '../producer/StreamProducerBase';
 

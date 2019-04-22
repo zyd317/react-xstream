@@ -1,4 +1,3 @@
-
 const _bind = (fn: Function, ctx: any) => {
     if (fn.bind) {
         return fn.bind(ctx);

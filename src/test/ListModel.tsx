@@ -24,7 +24,7 @@ export default class ListModel extends StreamProducerBase {
      */
     public subscribe (stream$: any, hydrateState: any) {
         return stream$
-            .map(({ userId }) => xs
+            .map((userId: any) => xs
                 .fromPromise(getUserList(userId))
                 .startWith({pending: true, errorInfo: null})
             )
