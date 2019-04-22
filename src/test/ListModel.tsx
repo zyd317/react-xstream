@@ -1,12 +1,12 @@
+import React from 'react';
+// @ts-ignore
 import xs, { flattenSequentially } from 'xstream';
 import { StreamProducerBase } from '../index';
-function getUserList (userId: any) {
-    return fetch(`sxmksfjnges?userId=${userId}`).then((res)=>{
-        return {
-            pending: res,
-            errorInfo: null
-        };
-    });
+async function getUserList (userId: any) {
+    return {
+        pending: userId,
+        errorInfo: null
+    };
 }
 export default class ListModel extends StreamProducerBase {
     // model初始状态，subscribeStreamToProps订阅model时会自动使用initialState初始化状态

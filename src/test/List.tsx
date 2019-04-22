@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 import { subscribeStreamToProps, autoBind } from '../index';
 import ListModel from './ListModel';
 const initState = {
@@ -21,7 +21,6 @@ interface Props {
     hasError: boolean;
     list: string[];
 }
-
 /**
  * 通过props注入到组件中
  * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC

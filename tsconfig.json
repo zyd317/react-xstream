@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "paths": {
+      "*": [
+        "types/*"
+      ]
+    },
     "outDir": "./esm",
     "declaration": true,
     "sourceMap": false,
@@ -17,12 +22,12 @@
     "allowJs": false,
     "charset": "utf-8",
     "removeComments": false,
-    "baseUrl": ".",
+    "baseUrl": "."
   },
   "include": [
     "./src/**/*.d.ts",
     "./src/**/*.tsx",
-    "./src/**/*.ts",
+    "./src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

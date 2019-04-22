@@ -12,7 +12,7 @@ type IStream = Stream<IPayload>;
  * 实现参考'xstream/extra/fromEvent'
  * 这个基类的主要作用是为Model统一提供：1.绑定（bindListenerWithNewStream）；2.解绑（unsubscribe）；3.流状态重置（resetStream）的能力，让父类只关注具体流数据的产生
  **/
-abstract class StreamProducerBase {
+export default abstract class StreamProducerBase {
     // subscribeStreamToProps Hoc中的pullStream会触发这个方法，间接启动流的分发行为
     private _dispatchStream: Function | null = null;
     // 订阅者, 如subscribeStreamToProps Hoc中的updateState
@@ -76,4 +76,3 @@ abstract class StreamProducerBase {
     @autoBind
     private _stop () {}
 }
-export default StreamProducerBase;
