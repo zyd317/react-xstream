@@ -24,11 +24,12 @@ export default class ListModel extends StreamProducerBase {
      */
     public subscribe (stream$: any, hydrateState: any) {
         return stream$
-            .map(({userId}) => xs
+            .map(({ userId }) => xs
                 .fromPromise(getUserList(userId))
                 .startWith({pending: true, errorInfo: null})
-            ).compose(flattenSequentially)
-            .map((response: { list: any }) => ({list: response.list, errorInfo: null, pending: false}))
+            )
+            .compose(flattenSequentially)
+            .map((response: { list: any; }) => ({list: response.list, errorInfo: null, pending: false}))
             .compose(flattenSequentially)
             .replaceError((err: any) => xs.of({errorInfo: err, pending: false}))
             .subscribe({
