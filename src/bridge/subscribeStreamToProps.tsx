@@ -6,7 +6,7 @@ type IMapStreamToProps = (state: AnyObject) => AnyObject;
 type subscribeStreamToPropsHoc = (component: ComponentClass) => ComponentClass;
 
 /**
- * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC
+ * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个高阶组件
  */
 const subscribeStreamToProps = (model: StreamProducerBase, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: ComponentClass) => {
     class ModelWrapperComponent extends PureComponent {
