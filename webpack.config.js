@@ -13,9 +13,7 @@ module.exports = (env, argv) => {
         output: {
             path: path.join(__dirname, 'lib'),
             filename: '[name].js',
-            publicPath: '/lib/',
-            library: 'SimpleComponent',
-            libraryTarget: 'umd'
+            publicPath: '/lib/'
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx']

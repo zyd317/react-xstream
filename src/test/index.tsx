@@ -6,6 +6,6 @@ const initProps = {
     pullStream: ()=>{},
     loading: true,
     hasError: false,
-    list: ['asfdgfdgsd', 'fvgdsgdfsb']
+    list: ['list1', 'list2']
 };
 render(<List {...initProps}/>, document.getElementById('app'));

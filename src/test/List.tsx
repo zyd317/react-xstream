@@ -25,7 +25,7 @@ interface Props {
  * 通过props注入到组件中
  * 订阅Model的装饰器，消费Model产生的数据并以props传入组件。本质上就是一个HOC
  */
-@subscribeStreamToProps(ListModel, (state: any) => ({
+@subscribeStreamToProps(new ListModel(), (state: any) => ({
     hasError: state.errorInfo !== null,
     loading: state.pending,
     list: state.list,
@@ -62,8 +62,7 @@ export default class List extends Component<Props, State> {
         );
     }
 
-    @autoBind
-    public reset () {
+    public reset = () => {
         this.props.resetStream();
-    }
+    };
 }

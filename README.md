@@ -8,3 +8,8 @@
 >2. Redux一般用于全局Model（Redux本身没有全局、局部的概念，但是我们一般搭配Provider在根组件注入Store此时就是全局状态，如果适用多个Provider在多处注入不同的Store，这就划分出局部Model了）。全局Model的一个缺点提升了局部状态的作用域，当其对应的组件卸载时我们需要手动清除状态，状态没有生命周期的概念。例如在SPA单页应用中页面进入/跳转时，需要手动初始化/清除状态。
 
 react-xstream结合xstream响应式编程的优势，为组件更好地管理响应式状态。并且状态生命周期随组件生命周期。
+
+### build
+1. npm run dev // build
+2. npm run start // dev-server
+3. http://127.0.0.1:8088/src/test/index.html

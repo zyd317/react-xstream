@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "module": "esm/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development",
+    "dev": "webpack --watch --mode development",
+    "start": "webpack-dev-server --mode development",
     "publish": "webpack --mode production",
     "analyzer": "webpack --mode production --env analyzer",
     "fix": "eslint --fix"

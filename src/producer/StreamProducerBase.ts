@@ -1,5 +1,4 @@
 import { Stream, InternalListener, Subscription } from 'xstream';
-import autoBind from '../utils/autoBind';
 export interface IModelConstructor extends Function {
     initialState?: AnyObject;
 }
@@ -27,52 +26,48 @@ export default abstract class StreamProducerBase {
     /**
      * 流初始化先，重新构流造然后再调用父类subscribe method进行订阅
      */
-    @autoBind
-    public resetStream () {
+    public resetStream = () => {
         const { _receiver } = this;
         if (_receiver) {
             this.bindListenerWithNewStream(_receiver);
         }
-    }
+    };
 
-    @autoBind
-    public unsubscribe () {
+    public unsubscribe = () => {
         if (this._unsubscribeHandle) {
             this._unsubscribeHandle.unsubscribe();
         }
-    }
+    };
 
     /**
      * 先重新构流造然后再调用父类subscribe method进行订阅
      * @param receiver
      */
-    @autoBind
-    public bindListenerWithNewStream (receiver: Function) {
+    public bindListenerWithNewStream = (receiver: Function) => {
         this._createStream();
         this._receiver = receiver;
         this._unsubscribeHandle = this.subscribe(this._stream$ as IStream, this._receiver);
         this._receiver((this.constructor as IModelConstructor).initialState || {});
-    }
+    };
 
-    @autoBind
-    public pullStream (payload: AnyObject) {
+    public pullStream = (payload: AnyObject) => {
         if (this._dispatchStream) {
             this._dispatchStream(payload);
         }
-    }
+    };
 
-    @autoBind
-    private _createStream () {
+    private _createStream = () => {
         // 先解绑之前的订阅
         this.unsubscribe();
-        this._stream$ = new Stream({_start: this._start, _stop: this._stop});
-    }
+        this._stream$ = new Stream({
+            _start: this._start,
+            _stop: this._stop
+        });
+    };
 
-    @autoBind
-    private _start (streamSource: InternalListener<IPayload>) {
+    private _start = (streamSource: InternalListener<IPayload>) => {
         this._dispatchStream = (data: AnyObject) => streamSource._n(data);
-    }
+    };
 
-    @autoBind
     private _stop () {}
 }

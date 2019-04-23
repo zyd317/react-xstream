@@ -1,11 +1,10 @@
 import React, {PureComponent, ReactElement} from 'react';
-import autoBind from '../utils/autoBind';
 import StreamProducerBase, { IModelConstructor } from '../producer/StreamProducerBase';
 
 type IMapStreamToProps = (state: AnyObject) => AnyObject;
 type subscribeStreamToPropsHoc = (component: any) => any;
 
-const subscribeStreamToProps = (model: any, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: any) => {
+const subscribeStreamToProps = (model: StreamProducerBase, mapStreamToProps: IMapStreamToProps): subscribeStreamToPropsHoc => (PipeComponent: any) => {
     class ModelWrapperComponent extends PureComponent {
         private hasBindListener = false;
         public state = {
@@ -19,21 +18,20 @@ const subscribeStreamToProps = (model: any, mapStreamToProps: IMapStreamToProps)
             this.hasBindListener = false;
         }
 
-        public bindListener () {
+        public bindListener = () => {
             if (this.hasBindListener) {
                 return;
             }
             model.bindListenerWithNewStream(this.updateState);
             this.hasBindListener = true;
-        }
+        };
 
-        @autoBind
-        public updateState (state = {}) {
+        public updateState = (state = {}) => {
             if (!this.hasBindListener) {
                 return;
             }
             this.setState(state);
-        }
+        };
 
         /**
          * 绑定listener的操作需在render中进行
